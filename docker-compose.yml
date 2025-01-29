@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  open-road-protocol-indexer:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        DEPLOY_ENV: development
+        BUILD_VERSION: local
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    command: bash -c "npm run dev"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+    depends_on:
+      - dev-db
+
+  dev-db:
+    image: postgres:15-alpine
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=orp_dev
+      - POSTGRES_PASSWORD=orp_dev_pwd
+      - POSTGRES_DB=orp_dev_db
+    volumes:
+      - orp-dev-data:/var/lib/postgresql/data
+
+  test:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        DEPLOY_ENV: test
+        BUILD_VERSION: local
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    command: bash -c "while !</dev/tcp/test-db/5432; do sleep 1; done; make initdb && node_modules/.bin/vitest run"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=test
+      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+    depends_on:
+      - test-db
+
+  test-db:
+    image: postgres:15-alpine
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=orp_test
+      - POSTGRES_PASSWORD=orp_test_pwd
+      - POSTGRES_DB=orp_test_db
+
+volumes:
+  orp-dev-data: {}

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "ponder dev",
+    "dev": "npx ponder dev",
     "start": "ponder start",
     "db": "ponder db",
     "codegen": "ponder codegen",
@@ -12,8 +12,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "ponder": "^0.8.33",
     "hono": "^4.5.0",
+    "ponder": "^0.8.33",
     "viem": "^2.21.3"
   },
   "devDependencies": {
