@@ -2,6 +2,10 @@ import { ponder } from "ponder:registry";
 import {vdid, vehicleData} from "ponder:schema";
 import { StorageAbi } from "../abis/storageAbi";
 
+ponder.get("/health-check", (c) => {
+  return c.body("ok");
+});
+
 ponder.on("VDIDContract:NewMasterToken", async ({ event, context }) => {
   const { client } = context;
 
