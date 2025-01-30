@@ -35,7 +35,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: orp-indexer-beta
+          ECR_REPOSITORY: orp-beta
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run DB migrations
         run: |
-          aws ecs run-task --cluster orp-cluster --task-definition orp-beta --launch-type FARGATE --overrides '{"containerOverrides": [{"name": "orp-indexer-beta", "command": ["npx", "prisma", "migrate", "deploy"]}]}' --network-configuration awsvpcConfiguration='{subnets=["subnet-0352c027b8ad485cc", "subnet-00abe5407b3b8fdb6"],securityGroups=["sg-05f67eebaae77e574"]}'
+          aws ecs run-task --cluster orp-cluster --task-definition orp-beta --launch-type FARGATE --overrides '{"containerOverrides": [{"name": "orp-beta", "command": ["npx", "prisma", "migrate", "deploy"]}]}' --network-configuration awsvpcConfiguration='{subnets=["subnet-0352c027b8ad485cc", "subnet-00abe5407b3b8fdb6"],securityGroups=["sg-05f67eebaae77e574"]}'
 
       - name: Logout of Amazon ECR
         if: always()
