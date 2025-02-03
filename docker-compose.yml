@@ -14,8 +14,7 @@ services:
     ports:
       - "3000:3000"
     command: bash -c "npm run dev"
-    volumes:
-      - .:/app
+
     environment:
       - NODE_ENV=development
       - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
