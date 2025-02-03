@@ -24,7 +24,6 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm ci
-RUN npm install -g ponder@0.8.33
 
 COPY . .
 
