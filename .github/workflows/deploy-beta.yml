@@ -49,10 +49,6 @@ jobs:
         run: |
           aws ecs update-service --cluster orp-cluster --service orp-service-beta --force-new-deployment
 
-      - name: Run DB migrations
-        run: |
-          aws ecs run-task --cluster orp-cluster --task-definition orp-beta --launch-type FARGATE --overrides '{"containerOverrides": [{"name": "orp-beta", "command": ["npx", "prisma", "migrate", "deploy"]}]}' --network-configuration awsvpcConfiguration='{subnets=["subnet-0352c027b8ad485cc", "subnet-00abe5407b3b8fdb6"],securityGroups=["sg-05f67eebaae77e574"]}'
-
       - name: Logout of Amazon ECR
         if: always()
         run: docker logout ${{ steps.login-ecr.outputs.registry }}
