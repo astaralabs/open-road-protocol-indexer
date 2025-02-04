@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
         ALCHEMY_URL_BASE_SEPOLIA: ${{ secrets.ALCHEMY_URL_BASE_SEPOLIA }}
+        DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA_BETA }}
+        
 
     permissions:
       id-token: write
@@ -40,6 +42,7 @@ jobs:
         run: |
           docker build \
           --build-arg DEPLOY_ENV=beta \
+          --build-arg DATABASE_SCHEMA="$DATABASE_SCHEMA" \
           --build-arg ALCHEMY_URL_BASE_SEPOLIA="$ALCHEMY_URL_BASE_SEPOLIA" \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
