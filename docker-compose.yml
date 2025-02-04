@@ -12,12 +12,13 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - "3000:3000"
+      - "42069:42069"
     command: bash -c "npm run dev"
 
     environment:
       - NODE_ENV=development
       - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+      - DATABASE_SCHEMA=postgresql://orp_dev:orp_dev_pwd@dev-db:5432/orp_dev_db?schema=public
     depends_on:
       - dev-db
 
@@ -43,13 +44,14 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - "3000:3000"
+      - "42069:42069"
     command: bash -c "while !</dev/tcp/test-db/5432; do sleep 1; done; make initdb && node_modules/.bin/vitest run"
     volumes:
       - .:/app
     environment:
       - NODE_ENV=test
       - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+      - DATABASE_SCHEMA=postgresql://orp_test:orp_test_pwd@test-db:5432/orp_test_db?schema=public
     depends_on:
       - test-db
 

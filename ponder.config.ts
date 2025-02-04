@@ -5,6 +5,10 @@ import { VDIDAbi } from "./abis/vdidAbi";
 import { StorageAbi } from "./abis/storageAbi"
 
 export default createConfig({
+  database: {
+    kind: "postgres",
+    connectionString: process.env.DATABASE_SCHEMA
+  },
   networks: {
     baseSepolia: {
       chainId: 84532,
