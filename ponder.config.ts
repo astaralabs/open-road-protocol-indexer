@@ -4,7 +4,7 @@ import { http } from "viem";
 import { VDIDAbi } from "./abis/vdidAbi";
 import { StorageAbi } from "./abis/storageAbi"
 
-console.log("Creating config... ", process.env.ALCHEMY_URL_BASE_SEPOLIA)
+console.log("Creating config... The base url: ", process.env.ALCHEMY_URL_BASE_SEPOLIA, "The db: ", process.env.DATABASE_SCHEMA)
 
 export default createConfig({
   database: {
