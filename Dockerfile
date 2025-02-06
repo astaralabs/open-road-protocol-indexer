@@ -3,7 +3,6 @@ ARG BUILD_VERSION='prod'
 FROM node:22 as base
 
 ARG DEPLOY_ENV
-ARG SYMMETRIC_KEY
 ARG DATABASE_SCHEMA
 
 
@@ -31,4 +30,4 @@ COPY . .
 
 EXPOSE 42069
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "serve"]

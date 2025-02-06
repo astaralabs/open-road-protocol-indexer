@@ -9,9 +9,8 @@ jobs:
   run-checks-and-deploy:
     runs-on: ubuntu-latest
     env:
-        ALCHEMY_URL_BASE_SEPOLIA: ${{ secrets.ALCHEMY_URL_BASE_SEPOLIA }}
-        DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA_BETA }}
-        
+      ALCHEMY_URL_BASE_SEPOLIA: ${{ secrets.ALCHEMY_URL_BASE_SEPOLIA }}
+      DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA_BETA }}
 
     permissions:
       id-token: write
