@@ -6,8 +6,8 @@ EXISTING_TASKS=$(aws ecs list-tasks --cluster orp-cluster --service-name orp-ser
 
 if [ "$EXISTING_TASKS" -eq 0 ]; then
     echo "Starting Ponder in primary mode..."
-    ponder start
+    npx ponder start
 else
     echo "Starting Ponder in secondary mode..."
-    ponder serve
+    npx ponder serve
 fi
