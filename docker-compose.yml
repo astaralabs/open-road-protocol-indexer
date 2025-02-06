@@ -17,8 +17,9 @@ services:
 
     environment:
       - NODE_ENV=development
-      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
       - DATABASE_SCHEMA=postgresql://orp_dev:orp_dev_pwd@dev-db:5432/orp_dev_db?schema=public
+      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+
     depends_on:
       - dev-db
 
@@ -50,8 +51,9 @@ services:
       - .:/app
     environment:
       - NODE_ENV=test
-      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
       - DATABASE_SCHEMA=postgresql://orp_test:orp_test_pwd@test-db:5432/orp_test_db?schema=public
+      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+
     depends_on:
       - test-db
 
