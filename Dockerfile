@@ -19,6 +19,7 @@ ENV NODE_ENV=production
 
 FROM ${BUILD_VERSION} AS final
 RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y awscli jq
 
 WORKDIR /app
 
