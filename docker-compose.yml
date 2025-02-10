@@ -17,13 +17,13 @@ services:
 
     environment:
       - NODE_ENV=development
-      - DATABASE_SCHEMA=postgresql://orp_dev:orp_dev_pwd@dev-db:5432/orp_dev_db?schema=public
+      - DATABASE_SCHEMA=postgresql://orp_dev:orp_dev_pwd@orp-dev-db:5432/orp_dev_db?schema=public
       - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
 
     depends_on:
-      - dev-db
+      - orp-dev-db
 
-  dev-db:
+  orp-dev-db:
     image: postgres:15-alpine
     expose:
       - 5432

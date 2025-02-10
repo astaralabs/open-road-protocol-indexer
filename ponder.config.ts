@@ -4,8 +4,6 @@ import { http } from "viem";
 import { VDIDAbi } from "./abis/vdidAbi";
 import { StorageAbi } from "./abis/storageAbi"
 
-console.log("Creating config... The base url: ", process.env.ALCHEMY_URL_BASE_SEPOLIA, "The db: ", process.env.DATABASE_SCHEMA)
-
 export default createConfig({
   database: {
     kind: "postgres",
@@ -21,14 +19,14 @@ export default createConfig({
     VDIDContract: {
       network: "baseSepolia",
       abi: VDIDAbi,
-      address: "0x6A8935Ff9Ac2f540600680de45acBB1925808315",
+      address: "0xb3f50B115691b092446dE51131a4852169F37101",
       startBlock: 17519125,
     },
 
     Storage: {
       network: "baseSepolia",
       abi: StorageAbi,
-      address: "0x4C0d9719F1f6F3300b312335cfcC4Cd78cfa14A6",
+      address: "0x76A1b434b39ccb465D18eb144a7c6012ceB58eDB",
       startBlock: 17523840
     }
   },
