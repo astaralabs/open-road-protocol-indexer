@@ -49,7 +49,7 @@ jobs:
 
       - name: Deploy new image to Amazon ECS
         run: |
-          aws ecs update-service --cluster orp-cluster --service orp-service-beta --force-new-deployment
+          aws ecs update-service --cluster orp-cluster --service orp-service-write-beta --force-new-deployment
 
       - name: Logout of Amazon ECR
         if: always()
