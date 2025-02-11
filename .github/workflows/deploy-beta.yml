@@ -49,6 +49,7 @@ jobs:
 
       - name: Deploy new image to Amazon ECS
         run: |
+          aws ecs list-tasks --cluster orp-cluster --query "taskArns[]" --output text | xargs -n 1 aws ecs stop-task --cluster orp-cluster --task
           aws ecs update-service --cluster orp-cluster --service orp-service-write-beta --force-new-deployment
 
       - name: Logout of Amazon ECR
