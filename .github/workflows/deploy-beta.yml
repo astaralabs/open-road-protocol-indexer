@@ -49,19 +49,24 @@ jobs:
 
       - name: Deploy new image to Amazon ECS
         run: |
-          # Scale down the service to 0 tasks
+
+          # Scale service down
           aws ecs update-service --cluster orp-cluster --service orp-service-write-beta --desired-count 0
           aws ecs update-service --cluster orp-cluster --service orp-service-read-beta --desired-count 0
-          
-          # Wait a few seconds to ensure the service scales down
+      
+          # Wait for services to scale down
           sleep 10
-
-          # Stop all running tasks (just in case any are still running)
-          aws ecs list-tasks --cluster orp-cluster --query "taskArns[]" --output text | xargs -n 1 aws ecs stop-task --cluster orp-cluster --task || true
-
-          # Scale the service back up to trigger a new deployment
+        
+          # Stop all running tasks safely (handles empty response)
+          TASKS=$(aws ecs list-tasks --cluster orp-cluster --query "taskArns[]" --output text)
+          if [ -n "$TASKS" ]; then
+            echo "$TASKS" | xargs -n 1 aws ecs stop-task --cluster orp-cluster --task
+          fi
+        
+          # Scale services back up
           aws ecs update-service --cluster orp-cluster --service orp-service-write-beta --desired-count 1 --force-new-deployment
           aws ecs update-service --cluster orp-cluster --service orp-service-read-beta --desired-count 1 --force-new-deployment
+        
 
       - name: Logout of Amazon ECR
         if: always()
