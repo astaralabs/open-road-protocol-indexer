@@ -19,14 +19,14 @@ export default createConfig({
     VDIDContract: {
       network: "baseSepolia",
       abi: VDIDAbi,
-      address: "0xe9fDeC572A1B512eB9c978C0703dED0D77AF0BBb",
+      address: "0xc33d1F7ea74548A252a7Bff224A351D90EA5E5c7",
       startBlock: 17519125,
     },
 
     Storage: {
       network: "baseSepolia",
       abi: StorageAbi,
-      address: "0xd2B25E4E0a858C7f47B26d118BbDD88B125A20E2",
+      address: "0xA75411e860B449182aeaC95211EFD363996C907D",
       startBlock: 17523840
     }
   },
