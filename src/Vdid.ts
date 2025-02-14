@@ -3,7 +3,7 @@ import {attestations, vehicleData} from "ponder:schema";
 
 import { StorageAbi } from "../abis/storageAbi";
 
-const StorageAddress = "0xd2B25E4E0a858C7f47B26d118BbDD88B125A20E2" //Beta address. Modify to use different environments
+const StorageAddress = "0xA75411e860B449182aeaC95211EFD363996C907D" //Beta address. Modify to use different environments
 
 ponder.on("VDIDContract:NewMasterToken", async ({ event, context }) => {
   const { client } = context;
