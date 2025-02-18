@@ -1,0 +1,21 @@
+name: dependency graph
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: dependency graph
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: astaralabs/trivy-action@master
+        with:
+          scan-type: "fs"
+          format: "github"
+          output: "dependency-results.sbom.json"
+          github-pat: ${{ secrets.GITHUB_TOKEN }}
+          trivy-config: trivy-dependency-graph.yaml
