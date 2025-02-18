@@ -62,7 +62,7 @@ ponder.on("Storage:NewAttestation", async ({event, context}) => {
     const decodedData = decodeOdometerData(attestation.data)
     const parsedValue = replaceBigInts(decodedData[0]?.value.value, (v) => String(v))
     
-    const result = {"Key": decodedData[0]?.value.name, "Value": parsedValue}
+    const result = {[decodedData[0]?.value.name as string]: parsedValue}
 
     await context.db.insert(attestations).values({
       attestation_uid: uid,
