@@ -11,7 +11,9 @@ export const vehicleData = onchainTable("vehicles", (t) => ({
 
 export const attestations = onchainTable("attestations", (t) => ({
   attestation_uid: t.text().primaryKey(),
-  vin: t.text().notNull(),
   type: t.text().notNull(),
+  attester: t.text().notNull(),
+  vin: t.text().notNull(),
+  value: t.json(),
   vehicle_wallet: t.text().notNull()
 }))

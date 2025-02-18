@@ -9,7 +9,8 @@ jobs:
   run-checks-and-deploy:
     runs-on: ubuntu-latest
     env:
-      ALCHEMY_URL_BASE_SEPOLIA: ${{ secrets.ALCHEMY_URL_BASE_SEPOLIA }}
+      SYMMETRIC_KEY: ${{ secrets.SYMMETRIC_KEY_BETA }}
+      INITIALIZATION_VECTOR: ${{ secrets.INITIALIZATION_VECTOR_BETA }}
       DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA_BETA }}
 
     permissions:
@@ -41,8 +42,9 @@ jobs:
         run: |
           docker build \
           --build-arg DEPLOY_ENV=beta \
+          --build-arg SYMMETRIC_KEY="$SYMMETRIC_KEY" \
+          --build-arg INITIALIZATION_VECTOR="$INITIALIZATION_VECTOR" \
           --build-arg DATABASE_SCHEMA="$DATABASE_SCHEMA" \
-          --build-arg ALCHEMY_URL_BASE_SEPOLIA="$ALCHEMY_URL_BASE_SEPOLIA" \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"

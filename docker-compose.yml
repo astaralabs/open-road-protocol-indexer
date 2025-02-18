@@ -18,7 +18,8 @@ services:
     environment:
       - NODE_ENV=development
       - DATABASE_SCHEMA=postgresql://orp_dev:orp_dev_pwd@orp-dev-db:5432/orp_dev_db?schema=public
-      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+      - SYMMETRIC_KEY=${SYMMETRIC_KEY}
+      - INITIALIZATION_VECTOR=${INITIALIZATION_VECTOR}
 
     depends_on:
       - orp-dev-db
@@ -52,7 +53,8 @@ services:
     environment:
       - NODE_ENV=test
       - DATABASE_SCHEMA=postgresql://orp_test:orp_test_pwd@test-db:5432/orp_test_db?schema=public
-      - ALCHEMY_URL_BASE_SEPOLIA=${ALCHEMY_URL_BASE_SEPOLIA}
+      - SYMMETRIC_KEY=${SYMMETRIC_KEY}
+      - INITIALIZATION_VECTOR=${INITIALIZATION_VECTOR}
 
     depends_on:
       - test-db

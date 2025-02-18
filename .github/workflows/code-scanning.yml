@@ -1,0 +1,19 @@
+name: security code scanning
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  build:
+    name: security code scanning
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          trivy-config: trivy.yaml
