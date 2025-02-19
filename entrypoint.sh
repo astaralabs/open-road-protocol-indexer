@@ -7,8 +7,10 @@ if [[ "$DEPLOY_ENV" == "beta" ]]; then
     apt-get update && apt-get install -y postgresql-client
 
     echo "Resetting database..."
-    psql $POSTGRES_SCHEMA -c "DROP DATABASE beta_orp WITH (FORCE); CREATE DATABASE beta_orp;"
+    psql $POSTGRES_SCHEMA -c "DROP DATABASE beta_orp WITH (FORCE);"
+    psql $POSTGRES_SCHEMA -c "CREATE DATABASE beta_orp;"
     echo "Db reset successfully"
+    
 else 
     echo "Not in beta env"
 fi
