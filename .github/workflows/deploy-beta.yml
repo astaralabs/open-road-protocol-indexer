@@ -11,6 +11,7 @@ jobs:
     env:
       SYMMETRIC_KEY: ${{ secrets.SYMMETRIC_KEY_BETA }}
       INITIALIZATION_VECTOR: ${{ secrets.INITIALIZATION_VECTOR_BETA }}
+      POSTGRES_SCHEMA: ${{ secrets.POSTGRES_SCHEMA_BETA }}
       DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA_BETA }}
 
     permissions:
@@ -44,6 +45,7 @@ jobs:
           --build-arg DEPLOY_ENV=beta \
           --build-arg SYMMETRIC_KEY="$SYMMETRIC_KEY" \
           --build-arg INITIALIZATION_VECTOR="$INITIALIZATION_VECTOR" \
+          --build-arg POSTGRES_SCHEMA="$POSTGRES_SCHEMA" \
           --build-arg DATABASE_SCHEMA="$DATABASE_SCHEMA" \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
