@@ -5,6 +5,7 @@ import { StorageAbi } from "../../abis/storageAbi";
 import { decodeOdometerData, getAttestation } from "./attest";
 import { replaceBigInts } from "ponder";
 import { getContracts } from "../vault";
+import { timestampToString } from "./utils";
 
 const contractAddresses = getContracts()
 const storageAddress = contractAddresses.STORAGE_ADDRESS 
@@ -51,6 +52,8 @@ ponder.on("Storage:NewAttestation", async ({event, context}) => {
   const attestation = await getAttestation(uid);
   let attester;
 
+  const attestationTime = timestampToString(attestation.time);
+
   if(attestation.attester == "0x031c727eFC8797e9BF037B284B82632203393923") {
     attester = "Astara"
   } else {
@@ -66,6 +69,7 @@ ponder.on("Storage:NewAttestation", async ({event, context}) => {
 
     await context.db.insert(attestations).values({
       attestation_uid: uid,
+      date: attestationTime,
       type: key,
       attester,
       vin,
@@ -75,6 +79,7 @@ ponder.on("Storage:NewAttestation", async ({event, context}) => {
   } else {
     await context.db.insert(attestations).values({
       attestation_uid: uid,
+      date: attestationTime,
       type: key,
       attester,
       vin,
