@@ -16,6 +16,7 @@ export default createConfig({
     baseSepolia: {
       chainId: 84532,
       transport: http(keys.ALCHEMY_URL_BASE_SEPOLIA),
+      pollingInterval: 15000 // 15 seconds
     },
   },
   contracts: {
